@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Letter Grade Calculator</string>
     <string name="studentName_prompt">Enter student name:</string>
-    <string name="quizScore_label">Quizes</string>
+    <string name="quizScore_label">Quizzes</string>
     <string name="assignmentScore_label">Assignments</string>
     <string name="midtermScore_label">Midterm</string>
     <string name="finalScore_label">Final</string>
+    <string name="calculate_button">Calculate grade</string>
 </resources>
