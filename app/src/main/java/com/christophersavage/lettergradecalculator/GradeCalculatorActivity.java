@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.HashMap;
 
 public class GradeCalculatorActivity extends AppCompatActivity {
@@ -20,30 +22,34 @@ public class GradeCalculatorActivity extends AppCompatActivity {
         mCalculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText mQuizScoreField = findViewById(R.id.quizScore);
-                Integer quizScore = Integer.parseInt(mQuizScoreField.getText().toString());
-
-                EditText mAssignmentScoreField = findViewById(R.id.assignmentScore);
-                Integer assignmentScore = Integer.parseInt(mAssignmentScoreField.getText().toString());
-
-                EditText mMidtermScoreField = findViewById(R.id.midtermScore);
-                Integer midtermScore = Integer.parseInt(mMidtermScoreField.getText().toString());
-
-                EditText mFinalScoreField = findViewById(R.id.finalScore);
-                Integer finalScore = Integer.parseInt(mFinalScoreField.getText().toString());
-
-
-                HashMap<String, Integer> studentScores = new HashMap<>();
-
-                studentScores.put("quiz", quizScore);
-                studentScores.put("assignment", assignmentScore);
-                studentScores.put("midterm", midtermScore);
-                studentScores.put("final", finalScore);
-
-                String calculatedGrade = calculateLetterGrade(studentScores);
 
                 TextView mCalculatedLetterGradeField = findViewById(R.id.calculatedLetterGrade);
-                mCalculatedLetterGradeField.setText(calculatedGrade);
+                HashMap<String, Integer> studentScores = new HashMap<>();
+                try{
+                    EditText mQuizScoreField = findViewById(R.id.quizScore);
+                    Integer quizScore = Integer.parseInt(mQuizScoreField.getText().toString());
+                    studentScores.put("quiz", quizScore);
+
+                    EditText mAssignmentScoreField = findViewById(R.id.assignmentScore);
+                    Integer assignmentScore = Integer.parseInt(mAssignmentScoreField.getText().toString());
+                    studentScores.put("assignment", assignmentScore);
+
+                    EditText mMidtermScoreField = findViewById(R.id.midtermScore);
+                    Integer midtermScore = Integer.parseInt(mMidtermScoreField.getText().toString());
+                    studentScores.put("midterm", midtermScore);
+
+                    EditText mFinalScoreField = findViewById(R.id.finalScore);
+                    Integer finalScore = Integer.parseInt(mFinalScoreField.getText().toString());
+                    studentScores.put("final", finalScore);
+                    }
+                catch (NumberFormatException e){
+                    Toast.makeText(GradeCalculatorActivity.this, "Please enter a numeric value into each score.", Toast.LENGTH_SHORT).show();
+                    mCalculatedLetterGradeField.setText("");
+                    return;
+                }
+
+                    String calculatedGrade = calculateLetterGrade(studentScores);
+                    mCalculatedLetterGradeField.setText(calculatedGrade);
             }
         });
     }
